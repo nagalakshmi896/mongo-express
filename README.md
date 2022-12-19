@@ -7,25 +7,25 @@ STEP 2
 Fill your MongoDB connection details and any other options you want to change in config.default.js
 
 Example:-
-your mongodb hostip= 10.2.3.28 , your mongo dbname= testdb
+your mongodb hostip= 10.2.33.29 , your mongo dbname= testdb
 Replace 127.0.0.1 ip with your mongodb hostip in config.default.js file
 
 $ vi config.default.js 
 
 Replace with your details like below lines at some places in config.default.js file
   
-host: '10.2.3.28',
+host: '10.2.33.29',
 port: '27017',
 dbName: 'testdb',
 
-mongo.host || process.env.ME_CONFIG_MONGODB_SERVER || '10.2.3.28',
+mongo.host || process.env.ME_CONFIG_MONGODB_SERVER || '10.2.33.29',
 port: mongo.port || process.env.ME_CONFIG_MONGODB_PORT || '27017',
 
 
 STEP 3
 Comment the below line in Dockerfile
 
-ENV ME_CONFIG_MONGODB_URL="mongodb://mongo:27017"
+#ENV ME_CONFIG_MONGODB_URL="mongodb://mongo:27017"
 
 STEP 4
 Add the required environment variables in .env file
