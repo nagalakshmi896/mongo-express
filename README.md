@@ -1,3 +1,66 @@
+STEP 1
+Clone the code
+
+$ git clone https://github.com/mongo-express/mongo-express.git
+
+STEP 2
+Fill your MongoDB connection details and any other options you want to change in config.default.js
+
+Example:-
+your mongodb hostip= 10.2.3.28 , your mongo dbname= testdb
+Replace 127.0.0.1 ip with your mongodb hostip in config.default.js file
+
+$ vi config.default.js 
+
+Replace with your details like below lines at some places in config.default.js file
+  
+host: '10.2.3.28',
+port: '27017',
+dbName: 'testdb',
+
+mongo.host || process.env.ME_CONFIG_MONGODB_SERVER || '10.2.3.28',
+port: mongo.port || process.env.ME_CONFIG_MONGODB_PORT || '27017',
+
+
+STEP 3
+Comment the below line in Dockerfile
+
+ENV ME_CONFIG_MONGODB_URL="mongodb://mongo:27017"
+
+STEP 4
+Add the required environment variables in .env file
+
+$ vi .env
+
+ME_CONFIG_MONGODB_AUTH_DATABASE=testdb
+ME_CONFIG_SITE_COOKIESECRET=cookiesecret
+ME_CONFIG_SITE_SESSIONSECRET=sessionsecret
+ME_CONFIG_BASICAUTH=true
+ME_CONFIG_BASICAUTH_USERNAME='XXXXXX'
+ME_CONFIG_BASICAUTH_PASSWORD='XXXXXXXXXX'
+PORT=8081
+
+STEP 5
+Run the code using docker-compose file
+
+$ vi docker-compose.yml
+
+version: '3.2'
+services:
+  mongo-express:
+    build:
+      context: .
+      dockerfile: Dockerfile      
+    env_file: .env
+    ports:
+      - '8081:8081'
+	  
+$ docker-compose up -d 	  
+	  
+
+++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 # mongo-express
 
 [![npm version](https://badge.fury.io/js/mongo-express.svg)](https://www.npmjs.com/package/mongo-express) [![npm](https://img.shields.io/npm/dm/mongo-express.svg)](https://www.npmjs.com/package/mongo-express) [![GitHub stars](https://img.shields.io/github/stars/mongo-express/mongo-express.svg)](https://github.com/mongo-express/mongo-express/stargazers) [![Known Vulnerabilities](https://snyk.io/test/npm/name/badge.svg)](https://snyk.io/test/npm/mongo-express)
